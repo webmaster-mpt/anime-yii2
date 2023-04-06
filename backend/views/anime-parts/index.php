@@ -13,6 +13,11 @@ use yii\grid\GridView;
 $this->title = 'Аниме части/серии';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .upload_btn, .upload_btn:hover{
+        color: #fff;
+    }
+</style>
 <div class="anime-parts-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -35,7 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name_anime_p:ntext',
             'path_n:ntext',
             'number_p',
-            'status_upload',
+            [
+                'attribute'=>'status_upload',
+                'value' => function ($model) {
+                    return Html::a(Html::encode($model->status_upload), Url::to(['/site/upload', 'id' => $model->id, 'path' => $model->source]), ['class' => 'upload_btn']);
+                },
+                'format' => 'raw',
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, AnimeParts $model, $key, $index, $column) {

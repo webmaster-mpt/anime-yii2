@@ -1,6 +1,8 @@
 <?php
 
 use common\models\Anime;
+use common\models\dictionary\StatusPosts;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -27,6 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'key_anime_m:ntext',
             'name_m',
             'count_parts',
+            [
+                'attribute'=>'status_posts',
+                'value' => function (Anime $model) {
+                    return $model->status_posts == 0 ? 'hide' : 'show';
+                }
+            ],
             //'anime_parts_id',
             [
                 'class' => ActionColumn::className(),

@@ -31,7 +31,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'parts-json'],
+                        'actions' => ['login', 'error', 'parts-json','change-status-parts'],
                         'allow' => true,
                     ],
                     [
@@ -77,9 +77,11 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionUpload()
+    public function actionUpload($path)
     {
-        return $this->render('upload');
+        return $this->render('upload',[
+            'source' => $path
+        ]);
     }
 
     /**
@@ -121,6 +123,14 @@ class SiteController extends Controller
             ];
         }
         return $items;
+    }
+
+    public function actionChangeStatusParts($id, $status){
+        $item = AnimeParts::findOne($id);
+        $item->status_upload = $status;
+        $item->save();
+        Yii::$app->session->setFlash('success', 'Статус был успешно изменён!');
+        return $this->redirect(['anime-parts/view', 'id' => $id]);
     }
 
     /**

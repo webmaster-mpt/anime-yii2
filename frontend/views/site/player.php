@@ -1,13 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link rel="stylesheet" href="../css/player.css">
 <script src="../js/player.js"></script>
-<?php
-/** @var yii\web\View $this */
-
-if (class_exists('yii\debug\Module')) {
-    $this->off(\yii\web\View::EVENT_END_BODY, [\yii\debug\Module::getInstance(), 'renderToolbar']);
-}
-?>
 <div class="container">
     <video id="video">
         <source src="" type="video/mp4" id="vsource" lang="ru" label="<?= $_GET['code'] ?>"

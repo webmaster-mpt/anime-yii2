@@ -34,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'type',
             'key_anime_m:ntext',
             'name_m',
-            'count_parts'
+            'count_parts',
+            'status',
+            'age_raiting',
+            'year_released',
+            'description',
         ],
     ]) ?>
 </div>

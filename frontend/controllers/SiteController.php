@@ -79,13 +79,39 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex($id = false)
+    public function actionIndex()
     {
-        $model = Anime::find()->all();
-        $rows = SplitAnime::find()->where(['anime_id' => $id])->all();
+        $this->layout = false;
+        $model = Anime::find()->where(['status_posts' => 1])->all();
         return $this->render('index',[
-            'model' => $model,
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionAnimeParts($id)
+    {
+        $this->layout = false;
+        $rows = Anime::find()->where(['id' => $id])->andWhere(['status_posts' => 1])->all();
+        return $this->render('anime-parts',[
             'rows' => $rows
+        ]);
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionCategory()
+    {
+        $model = Anime::find()->where(['status_posts' => 1])->all();
+        return $this->render('category',[
+            'model' => $model
         ]);
     }
 

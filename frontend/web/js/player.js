@@ -91,7 +91,6 @@ $(document).ready(function () {
                 keys = Object.keys(newData)
                 keys.sort((a, b) => compare(a, b))
                 keys.reverse();
-            console.log(keys);
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
                 out += `<div class="res ${key}">${key}</div>`;
@@ -137,7 +136,7 @@ $(document).ready(function () {
     });
 
     controls.close.click(function () {
-        window.location.href = "http://anime-yii2f?id=" + animeId;
+        window.location.href = "http://anime-yii2f/site/anime-parts?id=" + animeId;
     });
 
     video.addEventListener("canplay", function () {
@@ -228,7 +227,7 @@ $(document).ready(function () {
                 }
                 partDiv.html(out);
                 let part = $('.parts-card')[0]
-                path = 'http://api-anime/' + newData[part.id]['source']['360p']
+                path = 'http://api-anime/' + newData[part.id]['source']['720p']
                 animeName = $('.parts-info')[0].children[1].textContent;
                 loadSource(id, code, part.id);
                 localStorage.setItem('parts', part.id);

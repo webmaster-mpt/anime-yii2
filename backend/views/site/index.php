@@ -9,5 +9,4 @@ $this->title = 'Adminer';
     <a href="split-anime" class="btn btn-primary">Split Anime</a>
     <a href="anime" class="btn btn-primary">Аниме</a>
     <a href="anime-parts" class="btn btn-primary">Части аниме</a>
-    <a href="upload" class="btn btn-primary">Загрузить аниме</a>
 </div>

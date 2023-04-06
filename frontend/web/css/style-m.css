@@ -1,27 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+body {
+    background: linear-gradient(254.89deg, rgba(89, 91, 99, 0.1) 43.24%, rgba(255, 0, 0, 0.1) 68.53%), #101010 !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    color: #fff !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
 body::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
 }
+
 .m-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
     width: 100%;
     height: 100%;
+    font-size: 16px;
 }
 
 .m-card {
-    width: fit-content;
-    height: fit-content;
-    margin: 0 10px 0 40px;
-    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 271px;
+    grid-template-rows: minmax(21px, 1fr) 365px 50px; /*img text button-height*/
+    grid-template-areas: "text" "image" "button";
+    /*width: 25%;*/
+    /*border-radius: 20px;*/
+}
+
+.m-card > p{
+    grid-area: text;
 }
 
 .m-card > img {
+    grid-area: image;
+    background-size: cover;
     width: 271px;
     height: 366px;
-    border-radius: 20px;
+    /*border-radius: 20px;*/
 }
 
+
 .m-card > a {
-    display: block;
+    grid-area: button;
     margin: 10px 0;
 }

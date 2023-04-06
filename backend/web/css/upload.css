@@ -1,15 +1,11 @@
 body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 100vh;
     background: #6990F2;
 }
-/*#w0{*/
-/*    width: 500px;*/
-/*}*/
+
 .m-wrapper{
-    width: 500px;
+    width: 800px;
+    height: 500px;
     background: #fff;
     border-radius: 5px;
     padding: 30px;
@@ -25,7 +21,7 @@ body{
     height: 167px;
     display: flex;
     cursor: pointer;
-    margin: 30px 0;
+    margin: 10px 0;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -78,7 +74,7 @@ section .details span{
 }
 .content .progress-bar .progress{
     height: 100%;
-    width: 0%;
+    width: 0;
     background: #6990F2;
     border-radius: inherit;
 }
@@ -108,3 +104,24 @@ section .details span{
 .uploaded-area i.fa-check{
     font-size: 16px;
 }
+
+.upload_inp{
+    width: 100%;
+}
+
+.row > * {
+    width: 50% !important;
+}
+
+.right > header{
+    font-size: 20px;
+}
+
+.files{
+    margin-top: 12px;
+    border: 2px dashed #6990F2;
+    height: 350px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+

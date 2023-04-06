@@ -32,20 +32,9 @@ $this->registerCssFile('../css/upload.css');
 
     <?= $form->field($model, 'status_upload')->dropDownList(StatusUpload::$status, ['prompt' => '']) ?>
 
-    <div class="form-group  mt-2">
+    <div class="form-group mt-2">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
-    <div class="m-wrapper">
-        <header>File Uploader</header>
-        <form action="http://api-anime/test.php" class="form-up">
-            <input type="text" name="path">
-            <p class="upload">Click me</p>
-            <input class="file-input" type="file" name="file" multiple hidden>
-        </form>
-        <section class="progress-area"></section>
-        <section class="uploaded-area"></section>
-    </div>
 </div>
