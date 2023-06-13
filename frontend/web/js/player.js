@@ -8,39 +8,99 @@ $(document).ready(function () {
         fullscreen: $('.fullscreen'),
         normalScreen: $('.normalscreen'),
         volume: $('.volume'),
-        volumeIcon: $('.volume-icon'),
         chooseParts: $('.choose_parts'),
-        total: $('.video-progress'),
         progress: $('#current'),
         buffered: $('#buffered'),
         currentTime: $("#currenttime"),
         duration: $("#duration"),
         hasHours: false,
         progressBar: $('#progress-bar'),
-        currentProgress: $('#current-progress')
+        currentProgress: $('#current-progress'),
     };
+
     let vsource = document.querySelector('#vsource')
-    sourceDiv = $('.source')
-    resolutions = document.querySelectorAll('.res')
-    code = vsource.attributes.label.value
-    animeId = vsource.attributes.animeId.value
-    src = ""
-    partDiv = $('.parts')
-    out = ''
+        sourceDiv = $('.source')
+        code = vsource.attributes.label.value
+        animeId = vsource.attributes.animeId.value
+        src = ""
+        partDiv = $('.parts');
+
     video = controls.video[0];
     localStorage.clear();
     loadParts(animeId, code);
 
+    let funcForBtn = {
+        play: () => {
+            if(video.paused){
+                video.play();
+                $('.play').hide();
+                $('.pause').show();
+            } else {
+                video.pause();
+                $('.pause').hide();
+                $('.play').show();
+            }
+        },
+        pause: () => {
+            if(video.play){
+                video.pause();
+                $('.pause').hide();
+                $('.play').show();
+            } else {
+                video.play();
+                $('.play').hide();
+                $('.pause').show();
+            }
+        },
+        space: (e) => {
+            if(e.keyCode === 32){
+                if(video.paused){
+                    video.play();
+                    $('.play').hide();
+                    $('.pause').show();
+                } else {
+                    video.pause();
+                    $('.pause').hide();
+                    $('.play').show();
+                }
+            } else if(e.keyCode == 37){
+                video.currentTime -= 10;
+            } else if(e.keyCode == 39){
+                video.currentTime += 10;
+            }
+        },
+        enterFullScreen: (element)=> {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            }
+        },
+        exitFullScreen: () => {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+    }
+
+    $(document).on('keydown', function (e){
+        funcForBtn.space(e);
+    });
+
     controls.play.click(function () {
-        video.play();
-        $('.play').hide();
-        $('.pause').show();
+        funcForBtn.play();
     });
 
     controls.pause.click(function () {
-        video.pause();
-        $('.pause').hide();
-        $('.play').show();
+        funcForBtn.pause();
     });
 
     controls.volume.change(function () {
@@ -50,9 +110,9 @@ $(document).ready(function () {
     // right
     controls.chooseParts.click(function () {
         partDiv.toggle();
-        if (sourceDiv.show()) {
-            sourceDiv.hide();
-        }
+        // if (sourceDiv.show()) {
+        //     sourceDiv.hide();
+        // }
     });
 
     $(document).on('click', '.parts-card', function () {
@@ -66,9 +126,9 @@ $(document).ready(function () {
 
     controls.setting.click(function () {
         sourceDiv.toggle();
-        if (partDiv.show()) {
-            partDiv.hide();
-        }
+        // if (partDiv.show()) {
+        //     partDiv.hide();
+        // }
     });
 
     $('body').on('click', '.res', function () {
@@ -76,63 +136,18 @@ $(document).ready(function () {
         sourceDiv.hide();
     });
 
-    function loadSource(id, code, partId) {
-        const order = {'1440p': 0, '1080p': 1, '720p': 2, '480p': 3, '360p': 4, '240p':5};
-        Object.keys(order).forEach((key) => {
-            order[key] = Object.keys(order).indexOf(key);
-        });
-
-        function compare(a, b) {
-            return order[b] - order[a];
-        }
-        $.getJSON(`http://anime-yii2b/site/parts-json?id=${id}`, function (data) {
-            let out = ''
-                newData = data['film'][code]['parts'][partId]['source']
-                keys = Object.keys(newData)
-                keys.sort((a, b) => compare(a, b))
-                keys.reverse();
-            for (let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                out += `<div class="res ${key}">${key}</div>`;
-            }
-            sourceDiv.html(out);
-        });
-    }
-
     controls.fullscreen.click(function () {
         $('.fullscreen').hide();
         $('.normalscreen').show();
 
-        function enterFullscreen(element) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
-            } else if (element.msRequestFullscreen) {
-                element.msRequestFullscreen();
-            } else if (element.webkitRequestFullscreen) {
-                element.webkitRequestFullscreen();
-            }
-        }
-
-        enterFullscreen(document.documentElement);
+        funcForBtn.enterFullScreen(document.documentElement);
     });
 
     controls.normalScreen.click(function () {
         $('.normalscreen').hide();
         $('.fullscreen').show();
 
-        function exitFullscreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            }
-        }
-
-        exitFullscreen();
+        funcForBtn.exitFullScreen();
     });
 
     controls.close.click(function () {
@@ -190,9 +205,10 @@ $(document).ready(function () {
     });
 
     controls.progressBar.on('click', (event) => {
-        let coordStart = controls.progressBar[0].getBoundingClientRect().left;
-        let coordEnd = event.clientX || event.touches[0].clientX;
-        let progress = (coordEnd - coordStart) / controls.progressBar[0].offsetWidth;
+        let coordStart = controls.progressBar[0].getBoundingClientRect().left
+            coordEnd = event.clientX || event.touches[0].clientX
+            progress = (coordEnd - coordStart) / controls.progressBar[0].offsetWidth;
+
         controls.currentProgress[0].style.width = progress * 100 + "%";
         video.currentTime = progress * video.duration;
     });
@@ -213,10 +229,34 @@ $(document).ready(function () {
         _delay = setInterval(delayCheck, 500);
     }
 
+    function loadSource(id, code, partId) {
+        const order = {'1440p': 0, '1080p': 1, '720p': 2, '480p': 3, '360p': 4, '240p':5};
+        Object.keys(order).forEach((key) => {
+            order[key] = Object.keys(order).indexOf(key);
+        });
+
+        function compare(a, b) {
+            return order[b] - order[a];
+        }
+        $.getJSON(`http://anime-yii2b/site/parts-json?id=${id}`, function (data) {
+            let out = ''
+            newData = data[code]['parts'][partId]['source']
+            keys = Object.keys(newData)
+            keys.sort((a, b) => compare(a, b))
+            keys.reverse();
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                out += `<div class="res ${key}">${key}</div>`;
+            }
+            sourceDiv.html(out);
+        });
+    }
+
     function loadParts(id, code) {
         $.getJSON(`http://anime-yii2b/site/parts-json?id=${id}`, function (data) {
-            if (data['film'][code]) {
-                let newData = data['film'][code]['parts'];
+            if (data[code]) {
+                let newData = data[code]['parts']
+                    out = "";
                 for (let key in newData) {
                     out += `<div class="parts-card" id="${key}">
                         <div class="parts-info">
@@ -227,31 +267,18 @@ $(document).ready(function () {
                 }
                 partDiv.html(out);
                 let part = $('.parts-card')[0]
-                path = 'http://api-anime/' + newData[part.id]['source']['720p']
-                animeName = $('.parts-info')[0].children[1].textContent;
+                    sourceData = newData[part.id].source
+                    sourceName = "";
+                    for (let k in sourceData){sourceName = sourceData[k];}
+
+                let path = 'http://api-anime/' + sourceName
+                    animeName = $('.parts-info')[0].children[1].textContent;
                 loadSource(id, code, part.id);
                 localStorage.setItem('parts', part.id);
                 vsource.setAttribute('src', path);
+                $('title').text(animeName);
                 video.load();
-                $('.parts-card')[0].attributes.class.value = 'parts-card selectPart';
-                $('#number')[0].textContent = animeName;
-            } else if (data['series'][code]) {
-                let newData = data['series'][code]['parts'];
-                for (let key in newData) {
-                    out += `<div class="parts-card" id="${key}">
-                        <div class="parts-info">
-                            <img src="https://drive.google.com/uc?export=view&id=${newData[key]['poster']}" alt="poster" width="160" height="90"/>
-                            <span id="films-name">${newData[key]['name']}</span>
-                        </div>
-                    </div>`;
-                }
-                partDiv.html(out);
-                let part = $('.parts-card')[0];
-                path = 'http://api-anime/' + newData[part.id]['source']['1080p']
-                animeName = $('.parts-info')[0].children[1].textContent;
-                vsource.setAttribute('src', path);
-                video.load();
-                $('.parts-card')[0].attributes.class.value = 'parts-card selectPart';
+                part.attributes.class.value = 'parts-card selectPart';
                 $('#number')[0].textContent = animeName;
             } else {
                 alert('Такого видео не существует!');
@@ -261,11 +288,13 @@ $(document).ready(function () {
 
     function changeVideo(id, code, quality, status, parts) {
         $.getJSON(`http://anime-yii2b/site/parts-json?id=${id}`, function (data) {
-            if (data['film'][code]) {
-                newData = data['film'][code]['parts'][parts];
+            if (data[code]) {
+                newData = data[code]['parts'][parts];
                 src = 'http://api-anime/' + newData['source'][quality];
                 vsource.setAttribute('src', src);
                 video.load();
+                animeName = data[code]['parts'][parts]['name'];
+                $('title').text(animeName);
                 loadSource(id, code, parts);
                 if (status == 'play') {
                     video.play();
@@ -274,19 +303,8 @@ $(document).ready(function () {
                 } else {
                     video.pause();
                 }
-            } else if (data['series'][code]) {
-                newData = data['series'][code]['parts'][parts];
-                src = 'http://api-anime/' + newData['source'][quality];
-                vsource.setAttribute('src', src);
-                video.load();
-                if (status == 'play') {
-                    video.play();
-                    $('.play').hide();
-                    $('.pause').show();
-                } else {
-                    video.pause();
-                }
-            } else {
+            }
+            else {
                 alert('Такого видео не существует!');
             }
         });

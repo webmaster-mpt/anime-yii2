@@ -18,23 +18,20 @@ body::-webkit-scrollbar {
     position: absolute;
     width: 100%;
     height: 100%;
-    /*border: 1px solid white;*/
 }
-.ico,.logo{
+.logo{
     border: 1px solid white;
     width: 60px;
     height: 52px;
+    z-index: 10;
 }
 
-.logo > img{
+.logo > a img{
     display: flex;
     margin: 12px auto;
     width: 28px;
     height: 28px;
-}
-
-.ico{
-    border-radius: 20px 0 0 20px;
+    border-radius: 20px;
 }
 
 .logo{
@@ -45,18 +42,20 @@ body::-webkit-scrollbar {
     display: flex;
     margin: 20% auto;
     /*position: absolute;*/
-    width: 490px;
-    height: 54px;
+    width: fit-content;
+    height: fit-content;
 }
 
 input{
     background-color: #00000000;
     border: 1px solid white;
+    border-radius: 10px 0  0 10px;
     color: #fff;
     font-size: 24px;
     font-family: 'Montserrat', sans-serif;
     padding-left: 14px;
     height: 54px;
+    width: 430px;
     outline:none;
     z-index: 10;
 }
@@ -207,5 +206,31 @@ input{
 }
 
 .catBtn:hover{
+    text-decoration: underline;
+}
+
+.authBtn{
+    position: absolute;
+    top: 50%;
+    font-size: 18px;
+    left: 56.5%;
+    z-index: 10;
+}
+
+.authBtn:hover{
+    text-decoration: underline;
+}
+
+.logoutBtn{
+    position: absolute;
+    top: 50%;
+    font-size: 18px;
+    left: 57.5%;
+    z-index: 10;
+    background: none;
+    border: 0;
+}
+
+.logoutBtn:hover{
     text-decoration: underline;
 }

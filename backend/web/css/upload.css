@@ -2,9 +2,12 @@ body{
     min-height: 100vh;
     background: #6990F2;
 }
-
+::selection{
+    color: #fff;
+    background: #6990F2;
+}
 .m-wrapper{
-    width: 800px;
+    width: 100%;
     height: 500px;
     background: #fff;
     border-radius: 5px;
@@ -18,7 +21,7 @@ body{
     text-align: center;
 }
 .m-wrapper .form-up{
-    height: 167px;
+    height: 50px;
     display: flex;
     cursor: pointer;
     margin: 10px 0;
@@ -109,19 +112,18 @@ section .details span{
     width: 100%;
 }
 
-.row > * {
-    width: 50% !important;
-}
-
-.right > header{
+.col > header{
     font-size: 20px;
 }
-
 .files{
     margin-top: 12px;
     border: 2px dashed #6990F2;
     height: 350px;
     padding: 10px 20px;
     margin-bottom: 10px;
+    overflow-y:scroll;
 }
 
+.files::-webkit-scrollbar{
+    display: none;
+}

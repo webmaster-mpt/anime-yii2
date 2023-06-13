@@ -24,7 +24,6 @@ function uploadFile(name) {
         let fileSize;
         (fileTotal < 1024) ? fileSize = fileTotal + " KB" : fileSize = (loaded / (1024 * 1024)).toFixed(2) + " MB";
         let progressHTML = `<li class="row">
-                          <i class="fas fa-file-alt"></i>
                           <div class="content">
                             <div class="details">
                               <span class="name">${name} • Uploading</span>

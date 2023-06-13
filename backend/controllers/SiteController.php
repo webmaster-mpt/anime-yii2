@@ -108,7 +108,7 @@ class SiteController extends Controller
             foreach (glob($dir . '/*') as $key => $file) {
                 $files[str_replace('.mp4', '', (basename($file)) . 'p')] = $row->animeParts->source . basename($file);
             }
-            $items[$row->anime->type][$row->anime->key_anime_m] = $row;
+            $items[$row->anime->key_anime_m] = $row;
             $nItems[$row->animeParts->key_anime_p] = [
                 'name' => $row->animeParts->name_anime_p,
                 'poster' => $row->animeParts->poster,
@@ -116,8 +116,9 @@ class SiteController extends Controller
                 'number' => $row->animeParts->number_p,
                 'source' => $files
             ];
-            $items[$row->anime->type][$row->anime->key_anime_m] = [
+            $items[$row->anime->key_anime_m] = [
                 'name' => $row->anime->name_m,
+                'type' => $row->anime->type,
                 'count-parts' => $row->anime->count_parts,
                 'parts' => $nItems
             ];

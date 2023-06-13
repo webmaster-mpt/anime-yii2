@@ -22,9 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model)
+        {
+            if($model->status_posts == '0') {
+                return ['style' => 'background-color: #e15c5c; font-weight: 500;'];
+            } else{
+                return ['style' => 'background-color: #4d9857;font-weight: 500'];
+            }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'id',
             'type',
             'key_anime_m:ntext',
             'name_m',
@@ -35,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->status_posts == 0 ? 'hide' : 'show';
                 }
             ],
-            //'anime_parts_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Anime $model, $key, $index, $column) {

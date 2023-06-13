@@ -1,21 +1,28 @@
 <?php
 
-/** @var yii\web\View $this */
+use yii\helpers\Html;
 
-$this->title = 'Home';
-$this->registerCssFile('../css/style-m.css');
 ?>
+<title>Главная</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link rel="stylesheet" href="../css/search.css">
 <div class="group-block">
     <div class="form-group">
-        <div class="ico">
-        </div>
         <input type="text" class="searchInput">
         <div class="logo">
-            <img src="../avatar.svg" alt="">
+            <a href="site/profile"><img src="../uploads/<?= !empty($user) ? $user->avatar : 'avatar.svg' ?>" alt=""></a>
         </div>
         <a href="site/category" class="btn catBtn">Категория</a>
+        <?php if (Yii::$app->user->isGuest) { ?>
+        <a href="site/login" class="btn authBtn">Авторизация</a>
+        <?php } else { ?>
+            <?= Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+            'Выйти (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn logoutBtn']
+            )
+            . Html::endForm();
+         } ?>
     </div>
 </div>
 <div class="container">
@@ -24,7 +31,7 @@ $this->registerCssFile('../css/style-m.css');
             <div class="m-card hidden">
                 <p><?= $m->name_m ?></p>
                 <img src="https://drive.google.com/uc?export=view&id=<?= $m->poster ?>">
-                <a href="anime-parts?id=<?= $m->id ?>" class="btn btn-danger">Смотреть</a>
+                <a href="site/anime-parts?id=<?= $m->id ?>" class="btn btn-danger">Смотреть</a>
             </div>
         <?php } ?>
     </div>

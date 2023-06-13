@@ -101,3 +101,20 @@ a.desc:after {
 {
     text-decoration: none;
 }
+
+a.nav-link{
+    font-size: 18px;
+    color:#fff;
+}
+a.nav-link:hover{
+    color:#fff;
+}
+
+body{
+    background: linear-gradient(254.89deg, rgba(89, 91, 99, 0.1) 43.24%, rgba(255, 0, 0, 0.1) 68.53%),
+                #101010;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}

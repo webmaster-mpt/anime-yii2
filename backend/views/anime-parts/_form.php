@@ -11,10 +11,9 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 
 $this->registerJsFile('../js/form_ap.js');
-$this->registerCssFile('../css/upload.css');
 ?>
 
-<div class="anime-parts-form d-flex flex-wrap">
+<div class="anime-parts-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -27,8 +26,6 @@ $this->registerCssFile('../css/upload.css');
     <?= $form->field($model, 'path_n')->input('text') ?>
 
     <?= $form->field($model, 'number_p')->input('text') ?>
-
-    <?= $form->field($model, 'source')->input('text') ?>
 
     <?= $form->field($model, 'status_upload')->dropDownList(StatusUpload::$status, ['prompt' => '']) ?>
 

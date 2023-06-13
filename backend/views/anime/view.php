@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('Добавить часть', '/anime-parts/create', ['class' => 'btn btn-light']) ?>
         <?= Html::a('Добавить', 'create', ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
@@ -31,8 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'type',
             'key_anime_m:ntext',
+            'poster',
             'name_m',
             'count_parts',
             'status',

@@ -1,20 +1,22 @@
 <?php
 
-use yii\bootstrap5\BootstrapAsset;
+use yii\bootstrap5\Breadcrumbs;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\NavBar;
 
 /** @var yii\web\View $this */
 
-$this->title = 'Home';
-$this->registerCssFile('../css/style-m.css');
+$this->title = 'Категория';
+$this->registerCssFile('../css/test.css');
 ?>
-<div class="container">
-    <div class="m-grid">
-        <?php foreach ($model as $m) { ?>
-            <div class="m-card hidden">
-                <p><?= $m->name_m ?></p>
-                <img src="https://drive.google.com/uc?export=view&id=<?= $m->poster ?>">
-                <a href="anime-parts?id=<?= $m->id ?>" class="btn btn-danger">Смотреть</a>
-            </div>
-        <?php } ?>
-    </div>
+<div class="grid">
+    <?php foreach ($model as $m) { ?>
+        <figure class="cardM">
+            <img src="https://drive.google.com/uc?export=view&id=<?= $m->poster ?>" alt="" height="432" width="296" class="card__image">
+            <figcapiton class="card__body">
+                <a href="anime-parts?id=<?= $m->id ?>" class="card__title btn"><?= $m->name_m ?></a>
+            </figcapiton>
+        </figure>
+    <?php } ?>
 </div>

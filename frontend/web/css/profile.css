@@ -1,0 +1,22 @@
+.logo{
+    height: 300px;
+}
+
+.profile_av{
+    width: 300px;
+}
+
+.stat_user{
+    display: grid;
+}
+
+.stat_user a{
+    color: #fff;
+    margin: 5px 0;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#stat_a:hover{
+    color: #fff;
+}

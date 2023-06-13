@@ -28,18 +28,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
+            'id',
             [
                 'label' => 'аниме',
+                'attribute'=>'anime_id',
                 'value' => function(SplitAnime $model){
-                    return $model->anime->name_m;
-                }
+                    return Html::a(Html::encode($model->anime->name_m), Url::to(['/anime/view', 'id' => $model->anime_id]));
+                },
+                'format' => 'raw',
             ],
             [
                 'label' => 'аниме часть/серий',
-                'value' => function(SplitAnime $model){
-                    return $model->animeParts->name_anime_p;
-                }
+                'attribute'=>'anime_parts_id',
+                'value' => function (SplitAnime $model) {
+                    return Html::a(Html::encode($model->animeParts->name_anime_p), Url::to(['/anime-parts/view', 'id' => $model->anime_parts_id]));
+                },
+                'format' => 'raw',
             ],
             [
                 'class' => ActionColumn::className(),

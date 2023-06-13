@@ -38,11 +38,18 @@ body::-webkit-scrollbar {
     background-size: cover;
     width: 271px;
     height: 366px;
-    /*border-radius: 20px;*/
 }
 
 
-.m-card > a {
+.m-card > a{
     grid-area: button;
     margin: 10px 0;
+    background: none;
+    border: 2px solid white;
 }
+
+.btn-danger:hover{
+    background: none!important;
+    border: 2px solid white!important;
+}
+

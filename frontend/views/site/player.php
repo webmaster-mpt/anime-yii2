@@ -1,9 +1,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link rel="stylesheet" href="../css/player.css">
 <script src="../js/player.js"></script>
+<title></title>
 <div class="container">
     <video id="video">
-        <source src="" type="video/mp4" id="vsource" lang="ru" label="<?= $_GET['code'] ?>"
+        <source src="" id="vsource" lang="ru" label="<?= $_GET['code'] ?>"
                 animeId="<?= $_GET['id'] ?>">
     </video>
     <div id="controls">
